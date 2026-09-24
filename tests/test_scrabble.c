@@ -440,22 +440,7 @@ static void test_helpers(void) {
     CHECK(json_array_next_object(&cur, obj, sizeof obj) == -1, "objet non termine");
     CHECK(json_array_begin("{\"tiles\":3}", "tiles") == NULL, "tiles n'est pas un tableau");
 
-    char small[8];
-    url_decode(small, sizeof small, "ab%20cd+efghijklmnop");
-    CHECK(strlen(small) == 7 && strncmp(small, "ab cd e", 7) == 0, "url_decode tronque proprement : \"%s\"", small);
-    char tiny[1];
-    url_decode(tiny, sizeof tiny, "abc");
-    CHECK(tiny[0] == '\0', "url_decode avec un tampon de 1 octet");
-    char pct[8];
-    url_decode(pct, sizeof pct, "%4");
-    CHECK(strcmp(pct, "%4") == 0, "pourcentage incomplet laisse tel quel");
-
     DynBuf b;
-    dynbuf_init(&b);
-    html_escape_append(&b, "<b>\"Tom & 'Jerry'\"</b>");
-    CHECK(strcmp(b.data, "&lt;b&gt;&quot;Tom &amp; &#39;Jerry&#39;&quot;&lt;/b&gt;") == 0, "echappement HTML : %s", b.data);
-    dynbuf_free(&b);
-
     dynbuf_init(&b);
     for (int i = 0; i < 2000; i++) dynbuf_printf(&b, "%d,", i);
     CHECK(b.len > 8000 && b.data[b.len] == '\0' && strncmp(b.data, "0,1,2,", 6) == 0, "dynbuf_printf sur de gros volumes (%zu)", b.len);

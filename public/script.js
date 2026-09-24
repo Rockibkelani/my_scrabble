@@ -20,22 +20,4 @@ document.addEventListener("DOMContentLoaded", () => {
   syncDetails();
   if (desktop.addEventListener) desktop.addEventListener("change", syncDetails);
   else desktop.addListener(syncDetails);
-
-  const output = document.getElementById("output");
-  if (!output) return;
-
-  async function callApi(path) {
-    output.textContent = "Chargement...";
-    try {
-      const res = await fetch(path);
-      const data = await res.json();
-      output.textContent = JSON.stringify(data, null, 2);
-    } catch (err) {
-      output.textContent = "Erreur: " + err;
-    }
-  }
-
-  document.getElementById("btn-hello")?.addEventListener("click", () => callApi("/api/hello"));
-  document.getElementById("btn-time")?.addEventListener("click", () => callApi("/api/time"));
-  document.getElementById("btn-visits")?.addEventListener("click", () => callApi("/api/visits"));
 });

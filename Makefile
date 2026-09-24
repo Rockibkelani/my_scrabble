@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -O2 -pthread -I.
 SANFLAGS = -Wall -Wextra -O1 -g -fno-omit-frame-pointer -fsanitize=address,undefined -pthread -I.
 TARGET = server
 
-SRCS = main.c dynbuf.c util.c http.c json.c articles.c routes.c mem.c dict.c scrabble.c scrabble_api.c
+SRCS = main.c dynbuf.c util.c http.c json.c routes.c mem.c dict.c scrabble.c scrabble_api.c
 OBJS = $(SRCS:.c=.o)
 DEPS = server.h
 

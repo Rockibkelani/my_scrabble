@@ -1,9 +1,8 @@
 /*
- * Petit serveur HTTP en C.
+ * Serveur HTTP en C d'un jeu de Scrabble.
  * - Sert les fichiers statiques du dossier ./public
- * - Expose des routes dynamiques sous /api
- * - API REST complete pour /api/articles (GET/POST/PUT/DELETE, JSON)
  * - Logique complete du Scrabble cote serveur (/api/scrabble, voir scrabble.c)
+ * - /api/hello : reponse minimale, sert a reveiller le serveur heberge
  *
  * Compilation : make            (make asan / make test pour les verifications memoire)
  * Lancement   : ./server [port]   (sinon variable PORT, sinon 8080) ; Ctrl+C / SIGTERM pour arreter proprement
@@ -14,15 +13,14 @@
  *   util.c           helpers generiques (recherche, decodage URL, dates...)
  *   http.c           envoi de reponses, lecture complete d'une requete
  *   json.c           mini-JSON maison (lecture/ecriture)
- *   articles.c       modele Article + API REST /api/articles
- *   routes.c         routes /api/hello|time|visits|contact + fichiers statiques
+ *   routes.c         route /api/hello + fichiers statiques
  *   dict.c           dictionnaire francais du Scrabble (chargement, index)
  *   scrabble.c       regles, score, IA et suggestions du Scrabble
  *   scrabble_api.c   parties en memoire et routes HTTP du Scrabble
  *   main.c           reseau (accept + pool de workers), dispatch, arret propre
  *
  * Memoire : un pool fixe de NUM_WORKERS threads (joints a l'arret) traite les connexions.
- * A l'arret, tout est libere (parties, dictionnaire, articles) puis mem_report() verifie
+ * A l'arret, tout est libere (parties, dictionnaire) puis mem_report() verifie
  * que chaque allocation a ete liberee ; le code de sortie est 3 en cas de fuite.
  */
 
@@ -115,43 +113,13 @@ static void handle_client(int fd) {
     } else if (strcmp(method, "GET") == 0) {
         if (strcmp(clean_path, "/api/hello") == 0) {
             handle_api_hello(fd);
-        } else if (strcmp(clean_path, "/api/time") == 0) {
-            handle_api_time(fd);
-        } else if (strcmp(clean_path, "/api/visits") == 0) {
-            handle_api_visits(fd);
-        } else if (strcmp(clean_path, "/api/articles") == 0) {
-            handle_articles_list(fd);
-        } else if (starts_with(clean_path, "/api/articles/")) {
-            int id = parse_id_after_prefix(clean_path, "/api/articles/");
-            if (id < 0) send_json_error(fd, "400 Bad Request", "identifiant invalide");
-            else handle_articles_get(fd, id);
+        } else if (starts_with(clean_path, "/api/")) {
+            send_json_error(fd, "404 Not Found", "route inconnue");
         } else {
             serve_static(fd, clean_path);
         }
-    } else if (strcmp(method, "POST") == 0) {
-        if (strcmp(clean_path, "/api/contact") == 0) {
-            handle_api_contact(fd, body);
-        } else if (strcmp(clean_path, "/api/articles") == 0) {
-            handle_articles_create(fd, body);
-        } else {
-            send_json_error(fd, "404 Not Found", "route inconnue");
-        }
-    } else if (strcmp(method, "PUT") == 0) {
-        if (starts_with(clean_path, "/api/articles/")) {
-            int id = parse_id_after_prefix(clean_path, "/api/articles/");
-            if (id < 0) send_json_error(fd, "400 Bad Request", "identifiant invalide");
-            else handle_articles_update(fd, id, body);
-        } else {
-            send_json_error(fd, "404 Not Found", "route inconnue");
-        }
-    } else if (strcmp(method, "DELETE") == 0) {
-        if (starts_with(clean_path, "/api/articles/")) {
-            int id = parse_id_after_prefix(clean_path, "/api/articles/");
-            if (id < 0) send_json_error(fd, "400 Bad Request", "identifiant invalide");
-            else handle_articles_delete(fd, id);
-        } else {
-            send_json_error(fd, "404 Not Found", "route inconnue");
-        }
+    } else if (starts_with(clean_path, "/api/")) {
+        send_json_error(fd, "404 Not Found", "route inconnue");
     } else {
         send_response(fd, "405 Method Not Allowed", "text/plain", "Methode non autorisee", 21);
     }
@@ -231,7 +199,6 @@ int main(int argc, char *argv[]) {
     sigaction(SIGTERM, &sa, NULL);
     signal(SIGPIPE, SIG_IGN);
 
-    seed_articles();
     if (scrabble_init(SCRABBLE_WORDS_FILE) != 0) {
         fprintf(stderr, "Avertissement : dictionnaire '%s' introuvable ou invalide, Scrabble desactive.\n",
                 SCRABBLE_WORDS_FILE);
@@ -300,7 +267,6 @@ int main(int argc, char *argv[]) {
 
 cleanup:
     scrabble_cleanup();
-    articles_free();
     if (mem_report(stdout) != 0 && exit_code == 0) exit_code = 3;
     return exit_code;
 }

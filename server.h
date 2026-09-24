@@ -18,9 +18,6 @@
 #define CONN_QUEUE_SIZE    128  /* connexions en attente d'un worker */
 #define IO_TIMEOUT_SECONDS 10   /* delai max de lecture/ecriture par connexion */
 
-#define ARTICLE_TITLE_MAX   256
-#define ARTICLE_CONTENT_MAX 4096
-
 #define SCRABBLE_WORDS_FILE "data/words.txt"
 #define MAX_GAMES           64    /* parties simultanees maximum */
 #define GAME_TTL_SECONDS    3600  /* une partie inactive plus longtemps est liberee */
@@ -65,18 +62,6 @@ const char *mem_find(const char *hay, size_t hay_len, const char *needle);
 
 /* Idem, insensible a la casse. */
 const char *ci_mem_find(const char *hay, size_t hay_len, const char *needle);
-
-/* Decode une chaine URL-encodee dans dst (taille dstsize, tronque si necessaire). */
-void url_decode(char *dst, size_t dstsize, const char *src);
-
-/* Ajoute s a b en echappant les caracteres speciaux HTML (& < > " '). */
-void html_escape_append(DynBuf *b, const char *s);
-
-/* Ecrit la date/heure courante formattee ("YYYY-MM-DD HH:MM:SS") dans buf. */
-void format_now(char *buf, size_t bufsize);
-
-/* Extrait l'entier situe apres prefix dans path ; -1 si absent ou non numerique. */
-int parse_id_after_prefix(const char *path, const char *prefix);
 
 /* ================= http ================= */
 
@@ -128,26 +113,9 @@ int json_array_next_object(const char **cursor, char *obj, size_t objsz);
 /* Envoie une reponse d'erreur JSON {"error": "..."}. */
 void send_json_error(int fd, const char *status, const char *message);
 
-/* ================= articles ================= */
-
-/* Cree les articles de demonstration au demarrage du serveur. */
-void seed_articles(void);
-/* Libere tous les articles (arret du serveur). */
-void articles_free(void);
-
-/* Handlers de la route /api/articles (et /api/articles/:id). */
-void handle_articles_list(int fd);
-void handle_articles_get(int fd, int id);
-void handle_articles_create(int fd, const char *body);
-void handle_articles_update(int fd, int id, const char *body);
-void handle_articles_delete(int fd, int id);
-
 /* ================= routes ================= */
 
 void handle_api_hello(int fd);
-void handle_api_time(int fd);
-void handle_api_visits(int fd);
-void handle_api_contact(int fd, const char *req_body);
 
 /* Sert un fichier depuis PUBLIC_DIR, ou 404/403 en cas d'echec. */
 void serve_static(int fd, const char *path);

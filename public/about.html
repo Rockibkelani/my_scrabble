@@ -4,43 +4,89 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0f1117">
-<title>CwebSite - A propos</title>
+<meta name="description" content="Règles du Scrabble, valeur des lettres et fonctionnement de MyScrabble.">
+<title>MyScrabble - À propos</title>
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header class="site-header">
   <nav class="container">
-    <span class="logo">CwebSite</span>
+    <a class="logo" href="/index.html"><span class="logo-tile">M</span>MyScrabble</a>
     <div class="links">
       <a href="/index.html">Accueil</a>
-      <a href="/articles.html">Articles</a>
-      <a href="/scrabble.html">Scrabble</a>
-      <a href="/about.html">A propos</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/scrabble.html">Jouer</a>
+      <a href="/about.html">À propos</a>
     </div>
   </nav>
 </header>
 
 <main class="container">
+  <section class="hero">
+    <h1>À propos de MyScrabble</h1>
+    <p>Un Scrabble en français complet, jouable seul contre l'ordinateur ou à deux. Voici les règles appliquées et ce qui se passe en coulisses.</p>
+  </section>
+
   <section class="card">
-    <h1>A propos de ce projet</h1>
-    <p>Ce site est servi par <code>server.c</code>, un serveur HTTP minimaliste ecrit en C pur :</p>
-    <ul>
-      <li>Sockets POSIX (<code>socket</code>, <code>bind</code>, <code>listen</code>, <code>accept</code>)</li>
-      <li>Un pool de 16 threads (<code>pthread</code>) qui traitent les connexions, joints proprement a l'arret</li>
-      <li>Fichiers statiques servis depuis le dossier <code>public/</code></li>
-      <li>Routes dynamiques sous <code>/api/*</code> (JSON genere en C)</li>
-      <li>Une API REST complete pour les articles : <code>GET/POST /api/articles</code>, <code>GET/PUT/DELETE /api/articles/:id</code></li>
-      <li>Un mini-parseur JSON ecrit a la main (aucune bibliotheque externe)</li>
-      <li>Un Scrabble complet dont toute la logique (regles, score, IA, suggestions, dictionnaire de 310 000 mots) tourne cote serveur en C</li>
-      <li>Une gestion memoire tracee : chaque allocation est comptee et l'arret du serveur verifie que tout a ete libere</li>
-      <li>Un formulaire de contact traite cote serveur (POST + decodage URL)</li>
+    <h2>Les règles</h2>
+    <ul class="rules">
+      <li>Chaque joueur a <strong>7 lettres</strong> sur son chevalet, tirées au hasard dans un sac de 102 jetons (dont 2 jokers).</li>
+      <li>Le <strong>premier mot</strong> passe par l'étoile au centre du plateau. Les suivants doivent toucher un mot déjà posé.</li>
+      <li>Les lettres d'un même coup sont posées sur <strong>une seule ligne ou une seule colonne</strong>, sans trou. Tous les mots formés doivent exister.</li>
+      <li>Un <strong>joker</strong> peut remplacer n'importe quelle lettre, mais ne vaut aucun point.</li>
+      <li>Poser ses <strong>7 lettres en un coup</strong> rapporte 50 points de bonus (un « scrabble »).</li>
+      <li>À votre tour, vous pouvez aussi <strong>échanger</strong> des lettres contre d'autres du sac, ou <strong>passer</strong>.</li>
+      <li>La partie s'arrête quand le sac est vide et qu'un joueur a posé toutes ses lettres, ou après six tours de suite sans points (passes ou échanges). Le plus haut score l'emporte.</li>
     </ul>
   </section>
+
+  <section class="card">
+    <h2>Les cases bonus</h2>
+    <p class="muted">Une case bonus ne compte que pour le coup où une lettre y est posée.</p>
+    <ul class="legend">
+      <li><span class="swatch dl">LD</span><span><strong>Lettre compte double</strong> : la lettre posée dessus vaut 2 fois ses points.</span></li>
+      <li><span class="swatch tl">LT</span><span><strong>Lettre compte triple</strong> : la lettre vaut 3 fois ses points.</span></li>
+      <li><span class="swatch dw">MD</span><span><strong>Mot compte double</strong> : tout le mot vaut 2 fois ses points. L'étoile centrale en fait partie.</span></li>
+      <li><span class="swatch tw">MT</span><span><strong>Mot compte triple</strong> : tout le mot vaut 3 fois ses points.</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Valeur des lettres</h2>
+    <div class="letter-values">
+      <div class="value-group"><span class="value-label">1 point</span><span class="mini-tiles"><span>A</span><span>E</span><span>I</span><span>L</span><span>N</span><span>O</span><span>R</span><span>S</span><span>T</span><span>U</span></span></div>
+      <div class="value-group"><span class="value-label">2 points</span><span class="mini-tiles"><span>D</span><span>G</span><span>M</span></span></div>
+      <div class="value-group"><span class="value-label">3 points</span><span class="mini-tiles"><span>B</span><span>C</span><span>P</span></span></div>
+      <div class="value-group"><span class="value-label">4 points</span><span class="mini-tiles"><span>F</span><span>H</span><span>V</span></span></div>
+      <div class="value-group"><span class="value-label">8 points</span><span class="mini-tiles"><span>J</span><span>Q</span></span></div>
+      <div class="value-group"><span class="value-label">10 points</span><span class="mini-tiles"><span>K</span><span>W</span><span>X</span><span>Y</span><span>Z</span></span></div>
+      <div class="value-group"><span class="value-label">0 point</span><span class="mini-tiles"><span class="joker">?</span></span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>En coulisses</h2>
+    <ul>
+      <li>Tout le jeu (règles, calcul des points, IA et suggestions) tourne sur un <strong>serveur écrit en C</strong>, sans framework ni bibliothèque externe. Le navigateur ne fait qu'afficher le plateau.</li>
+      <li>L'IA et les suggestions explorent les placements possibles de vos lettres sur le plateau et vérifient chaque mot formé dans le dictionnaire de plus de 310 000 mots.</li>
+      <li>Le serveur compte chaque octet de mémoire qu'il utilise et vérifie à l'arrêt que tout a été rendu.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Bon à savoir</h2>
+    <ul>
+      <li>Le serveur se met en veille après 15 minutes sans joueur. La partie suivante peut alors mettre jusqu'à une minute à démarrer.</li>
+      <li>Les parties ne sont pas sauvegardées : une partie laissée plus d'une heure sans jouer, ou interrompue par un redémarrage du serveur, est perdue.</li>
+    </ul>
+  </section>
+
+  <div class="cta-row cta-center">
+    <a class="btn" href="/scrabble.html">Lancer une partie</a>
+  </div>
 </main>
 
 <footer class="site-footer">
-  <p>Serveur HTTP maison en C &middot; <span id="year"></span></p>
+  <p>MyScrabble &middot; Moteur de jeu écrit en C &middot; <span id="year"></span></p>
 </footer>
 
 <script src="/script.js"></script>

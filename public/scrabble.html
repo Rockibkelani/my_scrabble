@@ -4,19 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0f1117">
-<title>CwebSite - Scrabble</title>
+<title>MyScrabble - Jouer</title>
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header class="site-header">
   <nav class="container">
-    <span class="logo">CwebSite</span>
+    <a class="logo" href="/index.html"><span class="logo-tile">M</span>MyScrabble</a>
     <div class="links">
       <a href="/index.html">Accueil</a>
-      <a href="/articles.html">Articles</a>
-      <a href="/scrabble.html">Scrabble</a>
-      <a href="/about.html">A propos</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/scrabble.html">Jouer</a>
+      <a href="/about.html">À propos</a>
     </div>
   </nav>
 </header>
@@ -28,13 +26,13 @@
     <div id="scrabble-mode-screen" class="scrabble-mode-screen">
       <p>Choisissez un mode de jeu :</p>
       <div class="scrabble-mode-buttons">
-        <button id="scrabble-mode-pvp">Jouer a deux (meme ecran)</button>
+        <button id="scrabble-mode-pvp">Jouer à deux (même écran)</button>
         <button id="scrabble-mode-ai">Jouer contre l'IA</button>
       </div>
       <p id="scrabble-status" class="scrabble-status" role="status" aria-live="polite"></p>
       <p class="scrabble-hint">
-        En mode 2 joueurs, le plateau et les lettres sont visibles par tous les deux (pas
-        d'ecran cache) : passez-vous l'appareil a chaque tour.
+        À deux, le plateau et les lettres sont visibles par les deux joueurs (pas
+        d'écran caché) : passez-vous l'appareil à chaque tour.
       </p>
     </div>
 
@@ -42,12 +40,11 @@
       <details class="scrabble-help" data-desktop-open>
         <summary>Comment jouer ?</summary>
         <p>
-          Cliquez une lettre de votre main puis une case du plateau pour la poser.
-          Cliquez une lettre deja posee ce tour-ci pour la reprendre. Le premier mot
-          doit passer par la case centrale ; les suivants doivent toucher un mot existant.
-          Dictionnaire francais complet (plus de 310 000 mots, pluriels et conjugaisons inclus),
-          sans accents comme les vrais jetons de Scrabble. Toutes les regles, le score, l'IA
-          et les suggestions sont calcules par le serveur C.
+          Touchez une lettre de votre chevalet puis une case du plateau pour la poser.
+          Touchez une lettre posée pendant ce tour pour la reprendre. Le premier mot
+          passe par l'étoile centrale ; les suivants doivent toucher un mot déjà posé.
+          Les mots s'écrivent sans accents, comme sur les vrais jetons.
+          <a href="/about.html">Toutes les règles</a>
         </p>
       </details>
 
@@ -83,7 +80,7 @@
       <details class="scrabble-more" data-desktop-open>
         <summary>Plus d'actions</summary>
         <div class="scrabble-controls scrabble-controls-secondary">
-          <button id="scrabble-exchange">Echanger la selection</button>
+          <button id="scrabble-exchange">Échanger la sélection</button>
           <button id="scrabble-pass">Passer le tour</button>
           <button id="scrabble-end">Terminer la partie</button>
           <button id="scrabble-new">Changer de mode</button>
@@ -94,7 +91,7 @@
 </main>
 
 <footer class="site-footer">
-  <p>Serveur HTTP maison en C &middot; <span id="year"></span></p>
+  <p>MyScrabble &middot; Moteur de jeu écrit en C &middot; <span id="year"></span></p>
 </footer>
 
 <script src="/script.js"></script>

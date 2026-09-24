@@ -4,43 +4,69 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0f1117">
-<title>CwebSite - Accueil</title>
+<meta name="description" content="Jouez au Scrabble en français dans votre navigateur : contre une IA ou à deux sur le même écran. Gratuit, sans inscription.">
+<title>MyScrabble - Le Scrabble en français</title>
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header class="site-header">
   <nav class="container">
-    <span class="logo">CwebSite</span>
+    <a class="logo" href="/index.html"><span class="logo-tile">M</span>MyScrabble</a>
     <div class="links">
       <a href="/index.html">Accueil</a>
-      <a href="/articles.html">Articles</a>
-      <a href="/scrabble.html">Scrabble</a>
-      <a href="/about.html">A propos</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/scrabble.html">Jouer</a>
+      <a href="/about.html">À propos</a>
     </div>
   </nav>
 </header>
 
 <main class="container">
-  <section class="hero">
-    <h1>Un site web servi par un serveur écrit en C</h1>
-    <p>Pas de framework, pas de dependances : juste des sockets POSIX et quelques centaines de lignes de C.</p>
+  <section class="hero home-hero">
+    <div class="word-tiles" aria-hidden="true">
+      <span class="tile">S<small>1</small></span><span class="tile">C<small>3</small></span><span class="tile">R<small>1</small></span><span class="tile">A<small>1</small></span><span class="tile">B<small>3</small></span><span class="tile">B<small>3</small></span><span class="tile">L<small>1</small></span><span class="tile">E<small>1</small></span>
+    </div>
+    <h1>Le Scrabble en français, directement dans votre navigateur</h1>
+    <p>Affrontez une IA qui cherche le meilleur coup, ou jouez à deux sur le même écran. Gratuit, sans inscription, sur ordinateur comme sur téléphone.</p>
+    <div class="cta-row">
+      <a class="btn" href="/scrabble.html?mode=ai">Jouer contre l'IA</a>
+      <a class="btn btn-secondary" href="/scrabble.html?mode=pvp">Jouer à deux</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <article class="feature">
+      <h2>Une IA qui ne rate rien</h2>
+      <p>À chaque tour, elle explore les placements possibles sur tout le plateau et joue le coup qui rapporte le plus.</p>
+    </article>
+    <article class="feature">
+      <h2>310 000 mots</h2>
+      <p>Le dictionnaire français complet, pluriels et conjugaisons compris. Pas d'accents, comme sur les vrais jetons.</p>
+    </article>
+    <article class="feature">
+      <h2>Des suggestions</h2>
+      <p>Bloqué ? Demandez les meilleurs mots jouables avec vos lettres et posez-les en un clic.</p>
+    </article>
+    <article class="feature">
+      <h2>À deux, un seul écran</h2>
+      <p>Passez-vous l'appareil à chaque tour : les scores et le sac de lettres sont tenus pour vous.</p>
+    </article>
   </section>
 
   <section class="card">
-    <h2>Demo en direct</h2>
-    <p>Ces donnees sont generees dynamiquement par le serveur C, a chaque requete.</p>
-    <div class="button-row">
-      <button id="btn-hello">Appeler /api/hello</button>
-      <button id="btn-time">Appeler /api/time</button>
-      <button id="btn-visits">Compter une visite</button>
-    </div>
-    <pre id="output">Cliquez sur un bouton...</pre>
+    <h2>Comment jouer</h2>
+    <ol class="steps">
+      <li><strong>Posez vos lettres.</strong> Touchez une lettre de votre chevalet, puis une case du plateau.</li>
+      <li><strong>Validez le mot.</strong> Le serveur vérifie qu'il existe et qu'il est bien placé, puis compte les points.</li>
+      <li><strong>Marquez gros.</strong> Visez les cases bonus, et posez vos 7 lettres d'un coup pour 50 points de plus.</li>
+    </ol>
+    <p class="muted">Toutes les règles et la valeur des lettres sont sur la page <a href="/about.html">À propos</a>.</p>
   </section>
+
+  <p class="notice">La première partie peut mettre jusqu'à une minute à démarrer : le serveur de jeu se met en veille quand personne ne joue.</p>
 </main>
 
 <footer class="site-footer">
-  <p>Serveur HTTP maison en C &middot; <span id="year"></span></p>
+  <p>MyScrabble &middot; Moteur de jeu écrit en C &middot; <span id="year"></span></p>
 </footer>
 
 <script src="/script.js"></script>

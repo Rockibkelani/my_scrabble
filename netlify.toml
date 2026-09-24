@@ -4,7 +4,18 @@
 [build]
   publish = "public"
 
-# A ADAPTER : remplacer par l'adresse reelle du service Render (visible dans son tableau de bord).
+# Anciennes pages (le site est maintenant consacre au Scrabble) : on renvoie vers l'accueil.
+[[redirects]]
+  from = "/articles.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/"
+  status = 301
+
+# Serveur C sur Render : toutes les requetes /api/* lui sont relayees.
 [[redirects]]
   from = "/api/*"
   to = "https://cwebsite-api.onrender.com/api/:splat"

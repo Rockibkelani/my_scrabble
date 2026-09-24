@@ -7,6 +7,8 @@
   --text: #e7e9ee;
   --muted: #9aa1b1;
   --accent: #5b8cff;
+  --tile: #e8d9b5;     /* jeton de Scrabble */
+  --tile-ink: #1a1a1a;
   --tap: 44px; /* taille minimale d'une zone tactile */
   --link-pad: 12px; /* espacement horizontal des liens de navigation */
 }
@@ -66,8 +68,26 @@ code { overflow-wrap: anywhere; }
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--tap);
   font-weight: 700;
   font-size: 1.1rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.logo-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  background: var(--tile);
+  color: var(--tile-ink);
+  font-size: 0.95rem;
 }
 
 .links {
@@ -132,60 +152,6 @@ button {
   touch-action: manipulation;
 }
 
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.button-row button { margin: 0; }
-
-#output {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  margin-top: 16px;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  overflow-x: auto;
-  color: var(--muted);
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 16px;
-}
-
-.form label {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-/* 16 px minimum : en dessous, iOS zoome sur le champ a la saisie. */
-.form input,
-.form textarea,
-.article-item input,
-.article-item textarea {
-  width: 100%;
-  font: inherit;
-  font-size: 1rem;
-  min-height: var(--tap);
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px;
-  color: var(--text);
-}
-
-.form textarea,
-.article-item textarea { resize: vertical; }
-
 .site-footer {
   text-align: center;
   color: var(--muted);
@@ -194,55 +160,198 @@ button {
   font-size: 0.85rem;
 }
 
-/* ---------- Articles ---------- */
+a { color: var(--accent); }
 
-.articles-list {
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+.muted { color: var(--muted); }
 
-.article-item {
-  background: var(--bg);
-  border: 1px solid var(--border);
+/* Lien affiche comme un bouton (appels a l'action). */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  padding: 12px 22px;
   border-radius: 8px;
-  padding: 16px;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.article-item h3 {
-  margin: 0 0 8px;
-}
-
-.article-item p {
+.btn-secondary {
+  background: var(--surface-2);
   color: var(--text);
-  margin: 0 0 8px;
-  white-space: pre-wrap;
 }
 
-.article-item small {
-  color: var(--muted);
-}
-
-.article-item input,
-.article-item textarea {
-  margin-bottom: 8px;
-}
-
-.article-actions {
-  margin-top: 12px;
+.cta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
+  margin-top: 24px;
 }
 
-.article-actions button {
+.cta-center {
+  justify-content: center;
+  margin: 8px 0 24px;
+}
+
+/* ---------- Accueil ---------- */
+
+.home-hero h1 {
+  font-size: 2.3rem;
+  max-width: 16em;
+}
+
+.home-hero p {
+  font-size: 1.05rem;
+  max-width: 36em;
+}
+
+.word-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.tile {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 8 jetons toujours sur une ligne, meme sur un petit telephone. */
+  width: min(44px, calc((100% - 42px) / 8));
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  background: var(--tile);
+  color: var(--tile-ink);
+  font-weight: 700;
+  font-size: clamp(1rem, 5vw, 1.35rem);
+  box-shadow: 0 3px 0 #b9a77c;
+}
+
+.tile small {
+  position: absolute;
+  right: 4px;
+  bottom: 2px;
+  font-size: 0.6rem;
+  font-weight: 400;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.feature {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.feature h2 {
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+}
+
+.feature p {
   margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
-.delete-btn {
-  background: #e05260;
+.card h2 { margin-top: 0; }
+
+.steps {
+  padding-left: 1.3em;
+  margin: 0 0 12px;
 }
+
+.steps li { margin-bottom: 8px; }
+
+.notice {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---------- A propos ---------- */
+
+.rules li { margin-bottom: 8px; }
+
+.legend {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.swatch {
+  flex: 0 0 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Memes couleurs que les cases du plateau. */
+.swatch.dl { background: #16324f; }
+.swatch.tl { background: #0f4a63; }
+.swatch.dw { background: #4a2436; }
+.swatch.tw { background: #5c1f1f; }
+
+.letter-values {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.value-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.value-label {
+  flex: 0 0 5.5em;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.mini-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.mini-tiles span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background: var(--tile);
+  color: var(--tile-ink);
+  font-weight: 700;
+}
+
+.mini-tiles .joker { background: #cfe3d0; }
 
 /* ---------- Scrabble ---------- */
 
@@ -551,6 +660,7 @@ body.ai-turn .scrabble-controls button {
 @media (hover: hover) {
   button:hover { opacity: 0.9; }
   .links a:hover { color: var(--text); }
+  .btn:hover { opacity: 0.9; }
   .suggestion-btn:hover { opacity: 0.85; }
 }
 
@@ -577,7 +687,8 @@ body.ai-turn .scrabble-controls button {
   }
 
   .hero { padding: 28px 0 8px; }
-  .hero h1 { font-size: 1.6rem; }
+  .hero h1,
+  .home-hero h1 { font-size: 1.6rem; }
 
   .card {
     padding: 16px;
@@ -586,14 +697,8 @@ body.ai-turn .scrabble-controls button {
 
   .card h1 { font-size: 1.5rem; margin-top: 0; }
 
-  /* Boutons de la demo : pleine largeur, faciles a toucher. */
-  .button-row button,
-  .form button[type="submit"] {
-    flex: 1 1 100%;
-    width: 100%;
-  }
-
-  .article-actions button { flex: 1 1 0; }
+  .cta-row .btn { flex: 1 1 100%; }
+  .features { grid-template-columns: 1fr; gap: 12px; }
 
   /* Scrabble */
   .scrabble-card {

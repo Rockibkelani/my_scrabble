@@ -389,4 +389,13 @@
   $("scrabble-mode-pvp").addEventListener("click", () => startGame("pvp"));
   $("scrabble-mode-ai").addEventListener("click", () => startGame("ai"));
   window.addEventListener("pagehide", () => leaveGame(true));
+
+  /* Lien direct depuis l'accueil (scrabble.html?mode=ai ou ?mode=pvp) : la partie demarre tout de suite.
+     On retire le parametre de l'adresse pour que "Changer de mode" puis un rechargement ne relance rien. */
+  const params = new URLSearchParams(location.search);
+  const initialMode = params.get("mode");
+  if (initialMode === "ai" || initialMode === "pvp") {
+    history.replaceState(null, "", location.pathname);
+    startGame(initialMode);
+  }
 })();
