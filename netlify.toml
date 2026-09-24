@@ -1,0 +1,18 @@
+# Netlify sert le site statique (dossier public/) et relaie /api/* vers le serveur C sur Render.
+# Le navigateur ne parle qu'a Netlify : meme origine, donc aucun souci de CORS.
+
+[build]
+  publish = "public"
+
+# A ADAPTER : remplacer par l'adresse reelle du service Render (visible dans son tableau de bord).
+[[redirects]]
+  from = "/api/*"
+  to = "https://cwebsite-api.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

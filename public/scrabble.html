@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1117">
+<title>CwebSite - Scrabble</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="container">
+    <span class="logo">CwebSite</span>
+    <div class="links">
+      <a href="/index.html">Accueil</a>
+      <a href="/articles.html">Articles</a>
+      <a href="/scrabble.html">Scrabble</a>
+      <a href="/about.html">A propos</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="card scrabble-card">
+    <h1>Scrabble</h1>
+
+    <div id="scrabble-mode-screen" class="scrabble-mode-screen">
+      <p>Choisissez un mode de jeu :</p>
+      <div class="scrabble-mode-buttons">
+        <button id="scrabble-mode-pvp">Jouer a deux (meme ecran)</button>
+        <button id="scrabble-mode-ai">Jouer contre l'IA</button>
+      </div>
+      <p id="scrabble-status" class="scrabble-status" role="status" aria-live="polite"></p>
+      <p class="scrabble-hint">
+        En mode 2 joueurs, le plateau et les lettres sont visibles par tous les deux (pas
+        d'ecran cache) : passez-vous l'appareil a chaque tour.
+      </p>
+    </div>
+
+    <div id="scrabble-game-screen" class="hidden">
+      <details class="scrabble-help" data-desktop-open>
+        <summary>Comment jouer ?</summary>
+        <p>
+          Cliquez une lettre de votre main puis une case du plateau pour la poser.
+          Cliquez une lettre deja posee ce tour-ci pour la reprendre. Le premier mot
+          doit passer par la case centrale ; les suivants doivent toucher un mot existant.
+          Dictionnaire francais complet (plus de 310 000 mots, pluriels et conjugaisons inclus),
+          sans accents comme les vrais jetons de Scrabble. Toutes les regles, le score, l'IA
+          et les suggestions sont calcules par le serveur C.
+        </p>
+      </details>
+
+      <div class="scrabble-info scrabble-players">
+        <span id="scrabble-p1-box" class="player-box">
+          <span id="scrabble-p1-name">Joueur 1</span> : <strong id="scrabble-score-p1">0</strong>
+        </span>
+        <span id="scrabble-turn-indicator" class="scrabble-turn"></span>
+        <span id="scrabble-p2-box" class="player-box">
+          <span id="scrabble-p2-name">Joueur 2</span> : <strong id="scrabble-score-p2">0</strong>
+        </span>
+      </div>
+      <div class="scrabble-info">
+        <span>Lettres restantes dans le sac : <strong id="scrabble-bag-count">100</strong></span>
+      </div>
+
+      <div id="scrabble-board" class="scrabble-board"></div>
+
+      <div id="scrabble-suggestions" class="scrabble-suggestions hidden"></div>
+
+      <div class="scrabble-dock">
+        <div id="scrabble-rack" class="scrabble-rack"></div>
+
+        <p id="scrabble-message" class="scrabble-message"></p>
+
+        <div class="scrabble-controls">
+          <button id="scrabble-validate">Valider le mot</button>
+          <button id="scrabble-recall">Reprendre mes lettres</button>
+          <button id="scrabble-hint">Suggestions</button>
+        </div>
+      </div>
+
+      <details class="scrabble-more" data-desktop-open>
+        <summary>Plus d'actions</summary>
+        <div class="scrabble-controls scrabble-controls-secondary">
+          <button id="scrabble-exchange">Echanger la selection</button>
+          <button id="scrabble-pass">Passer le tour</button>
+          <button id="scrabble-end">Terminer la partie</button>
+          <button id="scrabble-new">Changer de mode</button>
+        </div>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Serveur HTTP maison en C &middot; <span id="year"></span></p>
+</footer>
+
+<script src="/script.js"></script>
+<script src="/scrabble.js"></script>
+</body>
+</html>

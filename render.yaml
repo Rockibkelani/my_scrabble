@@ -1,0 +1,9 @@
+# Blueprint Render : cree le service du serveur C a partir du Dockerfile.
+services:
+  - type: web
+    name: cwebsite-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    healthCheckPath: /api/hello
+    autoDeploy: true

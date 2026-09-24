@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1117">
+<title>CwebSite - A propos</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="container">
+    <span class="logo">CwebSite</span>
+    <div class="links">
+      <a href="/index.html">Accueil</a>
+      <a href="/articles.html">Articles</a>
+      <a href="/scrabble.html">Scrabble</a>
+      <a href="/about.html">A propos</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="card">
+    <h1>A propos de ce projet</h1>
+    <p>Ce site est servi par <code>server.c</code>, un serveur HTTP minimaliste ecrit en C pur :</p>
+    <ul>
+      <li>Sockets POSIX (<code>socket</code>, <code>bind</code>, <code>listen</code>, <code>accept</code>)</li>
+      <li>Un pool de 16 threads (<code>pthread</code>) qui traitent les connexions, joints proprement a l'arret</li>
+      <li>Fichiers statiques servis depuis le dossier <code>public/</code></li>
+      <li>Routes dynamiques sous <code>/api/*</code> (JSON genere en C)</li>
+      <li>Une API REST complete pour les articles : <code>GET/POST /api/articles</code>, <code>GET/PUT/DELETE /api/articles/:id</code></li>
+      <li>Un mini-parseur JSON ecrit a la main (aucune bibliotheque externe)</li>
+      <li>Un Scrabble complet dont toute la logique (regles, score, IA, suggestions, dictionnaire de 310 000 mots) tourne cote serveur en C</li>
+      <li>Une gestion memoire tracee : chaque allocation est comptee et l'arret du serveur verifie que tout a ete libere</li>
+      <li>Un formulaire de contact traite cote serveur (POST + decodage URL)</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Serveur HTTP maison en C &middot; <span id="year"></span></p>
+</footer>
+
+<script src="/script.js"></script>
+</body>
+</html>

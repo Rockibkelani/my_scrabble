@@ -1,0 +1,6 @@
+# Binaires et objets (le Dockerfile recompile tout)
+*.o
+server
+server_asan
+tests/test_scrabble
+.netlify/

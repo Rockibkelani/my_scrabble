@@ -1,0 +1,8 @@
+.git
+.gitignore
+*.o
+server
+server_asan
+tests
+netlify.toml
+render.yaml

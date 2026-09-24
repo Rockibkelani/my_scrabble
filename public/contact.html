@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1117">
+<title>CwebSite - Contact</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="container">
+    <span class="logo">CwebSite</span>
+    <div class="links">
+      <a href="/index.html">Accueil</a>
+      <a href="/articles.html">Articles</a>
+      <a href="/scrabble.html">Scrabble</a>
+      <a href="/about.html">A propos</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="card">
+    <h1>Contact</h1>
+    <p>Ce formulaire est traite directement par le serveur C (route <code>POST /api/contact</code>).</p>
+    <form action="/api/contact" method="POST" class="form">
+      <label>
+        Nom
+        <input type="text" name="name" required>
+      </label>
+      <label>
+        Message
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Serveur HTTP maison en C &middot; <span id="year"></span></p>
+</footer>
+
+<script src="/script.js"></script>
+</body>
+</html>

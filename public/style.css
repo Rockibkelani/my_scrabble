@@ -1,0 +1,713 @@
+:root {
+  color-scheme: dark;
+  --bg: #0f1117;
+  --surface: #171a23;
+  --surface-2: #232838;
+  --border: #262a36;
+  --text: #e7e9ee;
+  --muted: #9aa1b1;
+  --accent: #5b8cff;
+  --tap: 44px; /* taille minimale d'une zone tactile */
+  --link-pad: 12px; /* espacement horizontal des liens de navigation */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+main { flex: 1 0 auto; }
+
+img, svg, video { max-width: 100%; height: auto; }
+code { overflow-wrap: anywhere; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+}
+
+/* ---------- En-tete et navigation ---------- */
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--link-pad);
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.links a[aria-current="page"] {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* ---------- Contenu ---------- */
+
+.hero {
+  padding: 48px 0 24px;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: var(--muted);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+h1, h2 { line-height: 1.25; }
+
+button {
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  min-height: var(--tap);
+  margin: 4px 8px 4px 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.button-row button { margin: 0; }
+
+#output {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 16px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow-x: auto;
+  color: var(--muted);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* 16 px minimum : en dessous, iOS zoome sur le champ a la saisie. */
+.form input,
+.form textarea,
+.article-item input,
+.article-item textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  min-height: var(--tap);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--text);
+}
+
+.form textarea,
+.article-item textarea { resize: vertical; }
+
+.site-footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 32px 0;
+  padding-bottom: calc(32px + env(safe-area-inset-bottom));
+  font-size: 0.85rem;
+}
+
+/* ---------- Articles ---------- */
+
+.articles-list {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.article-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.article-item h3 {
+  margin: 0 0 8px;
+}
+
+.article-item p {
+  color: var(--text);
+  margin: 0 0 8px;
+  white-space: pre-wrap;
+}
+
+.article-item small {
+  color: var(--muted);
+}
+
+.article-item input,
+.article-item textarea {
+  margin-bottom: 8px;
+}
+
+.article-actions {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.article-actions button {
+  margin: 0;
+}
+
+.delete-btn {
+  background: #e05260;
+}
+
+/* ---------- Scrabble ---------- */
+
+.hidden {
+  display: none !important;
+}
+
+.scrabble-card p {
+  color: var(--muted);
+}
+
+.scrabble-help {
+  margin-bottom: 8px;
+}
+
+.scrabble-help summary,
+.scrabble-more summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--tap);
+  color: var(--muted);
+  list-style: none;
+}
+
+.scrabble-help summary::-webkit-details-marker,
+.scrabble-more summary::-webkit-details-marker { display: none; }
+
+.scrabble-help summary::after,
+.scrabble-more summary::after {
+  content: "\25BE"; /* fleche vers le bas : repliable */
+}
+
+.scrabble-help[open] summary::after,
+.scrabble-more[open] summary::after {
+  content: "\25B4";
+}
+
+.scrabble-mode-screen {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.scrabble-mode-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.scrabble-mode-buttons button {
+  margin: 0;
+  padding: 14px 22px;
+  font-size: 1rem;
+}
+
+.scrabble-card .scrabble-status {
+  min-height: 1.4em;
+  margin: 8px 0 0;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.scrabble-hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+  max-width: 480px;
+  margin: 16px auto 0;
+}
+
+.scrabble-info {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  color: var(--text);
+  font-size: 0.95rem;
+  margin: 16px 0;
+}
+
+.scrabble-players {
+  align-items: center;
+}
+
+.player-box {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.player-box.active-player {
+  border-color: var(--accent);
+  background: rgba(91, 140, 255, 0.12);
+}
+
+.scrabble-turn {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Plateau : container-type permet de dimensionner lettres et points en cqw
+   (1cqw = 1 % de la largeur du plateau), donc proportionnellement aux cases. */
+.scrabble-board {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: repeat(15, minmax(0, 1fr));
+  gap: 2px;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scrabble-cell {
+  position: relative;
+  min-width: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+}
+
+.scrabble-cell.dl { background: #16324f; }
+.scrabble-cell.tl { background: #0f4a63; }
+.scrabble-cell.dw { background: #4a2436; }
+.scrabble-cell.tw { background: #5c1f1f; }
+.scrabble-cell.center { background: #4a2436; }
+
+.scrabble-cell .cell-premium {
+  font-size: 0.55rem;
+  font-size: 2.2cqw;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.scrabble-cell .cell-star {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-size: 4cqw;
+}
+
+.scrabble-cell.filled {
+  background: #e8d9b5;
+}
+
+.scrabble-cell.tentative {
+  background: #f2e6c2;
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.scrabble-cell.blank-tile {
+  background: #cfe3d0;
+}
+
+.scrabble-cell .cell-letter {
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: clamp(0.6rem, 2vw, 0.95rem);
+  font-size: 4.3cqw;
+  line-height: 1;
+}
+
+.scrabble-cell .cell-pts {
+  position: absolute;
+  bottom: 2px;
+  right: 3px;
+  font-size: 0.5rem;
+  font-size: 2.2cqw;
+  line-height: 1;
+  bottom: 0.5cqw;
+  right: 0.7cqw;
+  color: #1a1a1a;
+  font-weight: 400;
+}
+
+.scrabble-suggestions {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.scrabble-suggestions p {
+  margin: 0 0 8px;
+  color: var(--muted);
+}
+
+.suggestion-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.suggestion-btn {
+  margin: 0;
+  background: #2c5f4f;
+}
+
+/* Chevalet + message + actions principales : groupe "dock", colle au bas de l'ecran sur mobile. */
+.scrabble-dock {
+  margin-top: 8px;
+}
+
+.scrabble-rack {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  min-height: 52px;
+  margin-top: 12px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.rack-tile {
+  position: relative;
+  flex: 0 1 48px;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  background: #e8d9b5;
+  color: #1a1a1a;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.rack-tile.blank-tile {
+  background: #cfe3d0;
+}
+
+.rack-tile.selected {
+  outline: 3px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.rack-tile .pts {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  font-size: 0.55rem;
+  font-weight: 400;
+}
+
+.scrabble-message {
+  text-align: center;
+  min-height: 2.6em;
+  margin: 8px 0 0;
+  color: var(--accent);
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.scrabble-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.scrabble-controls button {
+  margin: 0;
+}
+
+.scrabble-controls-secondary button {
+  background: var(--surface-2);
+}
+
+body.ai-turn .scrabble-board,
+body.ai-turn .scrabble-rack,
+body.ai-turn .scrabble-controls button {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Sur ordinateur, le repli "Plus d'actions" est toujours ouvert et son titre inutile. */
+@media (min-width: 641px) {
+  .scrabble-more > summary { display: none; }
+}
+
+/* ---------- Survol : uniquement pour les pointeurs qui savent survoler ---------- */
+
+@media (hover: hover) {
+  button:hover { opacity: 0.9; }
+  .links a:hover { color: var(--text); }
+  .suggestion-btn:hover { opacity: 0.85; }
+}
+
+/* ---------- Tablette et telephone ---------- */
+
+@media (max-width: 640px) {
+  .container {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+
+  /* Le logo au-dessus, les liens sur toute la largeur ; la marge negative compense le
+     padding des liens pour que leur texte s'aligne sur la marge de la page. */
+  :root { --link-pad: 8px; }
+  .site-header nav { gap: 0 12px; }
+  .links {
+    width: calc(100% + 2 * var(--link-pad));
+    margin: 0 calc(-1 * var(--link-pad));
+  }
+  .links a {
+    flex: 1 1 auto;          /* si une ligne ne suffit pas, les liens s'etirent au lieu de laisser un orphelin */
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  .hero { padding: 28px 0 8px; }
+  .hero h1 { font-size: 1.6rem; }
+
+  .card {
+    padding: 16px;
+    margin: 16px 0;
+  }
+
+  .card h1 { font-size: 1.5rem; margin-top: 0; }
+
+  /* Boutons de la demo : pleine largeur, faciles a toucher. */
+  .button-row button,
+  .form button[type="submit"] {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .article-actions button { flex: 1 1 0; }
+
+  /* Scrabble */
+  .scrabble-card {
+    --scrabble-pad: 12px;
+    padding: var(--scrabble-pad);
+  }
+
+  .scrabble-mode-buttons button { flex: 1 1 100%; }
+
+  /* Les deux joueurs cote a cote, l'indicateur de tour centre au-dessus. */
+  .scrabble-players {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 12px 0 8px;
+  }
+
+  .scrabble-turn {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    text-align: center;
+  }
+
+  .player-box { text-align: center; }
+
+  .scrabble-players + .scrabble-info {
+    justify-content: center;
+    margin: 0 0 12px;
+  }
+
+  .scrabble-board { gap: 1px; }
+
+  .scrabble-suggestions { padding: 10px 12px; }
+  .suggestion-btn { flex: 1 1 calc(50% - 4px); }
+
+  .rack-tile {
+    font-size: clamp(1rem, 5.5vw, 1.35rem);
+  }
+
+  /* Actions principales sur une seule ligne (Valider un peu plus large) ; actions secondaires en 2 x 2. */
+  .scrabble-controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .scrabble-dock .scrabble-controls {
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .scrabble-dock .scrabble-controls button {
+    padding: 8px 6px;
+    font-size: 0.88rem;
+  }
+
+  .scrabble-more summary { min-height: 40px; }
+}
+
+/* Telephone en portrait : le chevalet et les actions principales restent visibles
+   pendant qu'on fait defiler le plateau. Pas en paysage (trop peu de hauteur). */
+@media (max-width: 640px) and (min-height: 560px) {
+  .scrabble-dock {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    margin: 12px calc(-1 * var(--scrabble-pad)) 0;
+    padding: 4px var(--scrabble-pad) calc(8px + env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -10px 18px rgba(0, 0, 0, 0.4);
+  }
+
+  .scrabble-dock .scrabble-rack {
+    margin-top: 6px;
+    min-height: 48px;
+  }
+
+  .scrabble-dock .scrabble-message {
+    margin-top: 6px;
+    min-height: 2.6em;
+    font-size: 0.85rem;
+  }
+}
+
+/* Petits telephones : la carte du Scrabble occupe toute la largeur pour agrandir le plateau. */
+@media (max-width: 480px) {
+  .scrabble-card {
+    --scrabble-pad: 8px;
+    margin-left: calc(-1 * max(16px, env(safe-area-inset-left)));
+    margin-right: calc(-1 * max(16px, env(safe-area-inset-right)));
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+
+  :root { --link-pad: 5px; }
+  .links a { font-size: 0.85rem; }
+  .card { padding: 14px; }
+  .scrabble-card {
+    padding: var(--scrabble-pad);
+    margin-left: calc(-1 * max(12px, env(safe-area-inset-left)));
+    margin-right: calc(-1 * max(12px, env(safe-area-inset-right)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
