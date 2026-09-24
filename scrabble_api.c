@@ -16,7 +16,6 @@
 #include "server.h"
 
 #include <ctype.h>
-#include <limits.h>
 #include <pthread.h>
 #include <string.h>
 #include <sys/random.h>

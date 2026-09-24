@@ -5,9 +5,7 @@
 
 #include "server.h"
 
-#include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 static int passes = 0, failures = 0;
 
