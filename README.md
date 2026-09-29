@@ -3,7 +3,7 @@
 Un Scrabble en français jouable dans le navigateur, contre une IA ou à deux sur le même écran.
 Toute la logique du jeu tourne sur un serveur HTTP écrit en C, sans framework ni bibliothèque externe.
 
-**Jouer : https://myscrabblee.netlify.app**
+**Jouer : https://myscrabblee.bykelani.dev**
 
 ## Fonctionnalités
 

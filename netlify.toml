@@ -4,6 +4,19 @@
 [build]
   publish = "public"
 
+# Ancienne adresse Netlify : tout est renvoye vers le domaine principal (en premier : les regles sont lues dans l'ordre).
+[[redirects]]
+  from = "https://myscrabblee.netlify.app/*"
+  to = "https://myscrabblee.bykelani.dev/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://myscrabblee.netlify.app/*"
+  to = "https://myscrabblee.bykelani.dev/:splat"
+  status = 301
+  force = true
+
 # Anciennes pages (le site est maintenant consacre au Scrabble) : on renvoie vers l'accueil.
 [[redirects]]
   from = "/articles.html"
